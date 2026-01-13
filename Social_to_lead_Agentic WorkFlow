@@ -1,0 +1,41 @@
+# AutoStream Social-to-Lead AI Agent
+
+This project is part of the ServiceHive – Inflx ML Intern Assignment. The agent converts
+social media conversations into qualified business leads using intent detection,
+retrieval-augmented generation, and stateful lead capture.
+
+--
+
+# How to Run the Project Locally
+
+
+git clone https://github.com/karkilalit18/Capstone-Project/blob/main/_Social-to-Lead%20Agentic%20Workflow.ipynb
+
+cd autostream-agent
+
+pip install -r requirements.txt
+
+
+
+
+This project uses an AutoGen-style agentic workflow implemented in Python. AutoGen was
+chosen because it supports multi-step conversational agents with memory and tool
+execution, making it ideal for building real-world SaaS lead-generation systems.
+
+The agent is composed of three main components. First, an intent detection module
+classifies user messages into greeting, product inquiry, or high-intent lead using
+keyword-based NLP logic. Second, a lightweight RAG pipeline retrieves pricing and policy
+information from a local JSON knowledge base, ensuring responses are grounded in verified
+company data. Third, a stateful lead capture workflow maintains conversation context across
+multiple turns. Once a high-intent signal is detected, the agent enters a gated flow where
+it sequentially collects the user’s name, email, and creator platform. Only after all
+three values are collected does it execute the mock_lead_capture() tool, preventing
+premature API calls.
+
+📲 WhatsApp Integration Using Webhooks
+
+To deploy this agent on WhatsApp, Twilio’s WhatsApp Business API can be used. Incoming user 
+messages are sent to a FastAPI webhook endpoint. Each WhatsApp user ID is mapped to a
+persistent agent state stored in memory or Redis. The webhook forwards the message to the
+AutoStream agent, and the generated response is returned to the user through Twilio’s API,
+enabling real-time conversational lead generation on WhatsApp.
